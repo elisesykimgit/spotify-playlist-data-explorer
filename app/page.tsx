@@ -132,7 +132,7 @@ export default function Home() {
   // ---------- Stats aggregation ----------
   const { genreCounts, artistCounts, yearCounts, albumCounts } = useMemo(() => {
     const g: Record<string, number> = {};
-    const a: Record<string, { name: string; count: number; image?: string }> = {};
+    const a: Record<string, { name: string; id?: string; count: number; image?: string }> = {};
     const y: Record<string, number> = {};
     const albums: Record<
       string,
@@ -164,6 +164,7 @@ export default function Home() {
         if (!a[name]) {
           a[name] = {
             name,
+            id,
             count: 0,
             image: typeof img === "string" ? img : undefined,
           };
@@ -220,8 +221,8 @@ export default function Home() {
   const flattenedArtistCounts = useMemo(() => {
       const result: Record<string, number> = {};
 
-      for (const [id, data] of Object.entries(artistCounts)) {
-        const label = `${data.name} (id: ${id})`;
+      for (const data of Object.values(artistCounts)) {
+        const label = `${data.name} (id: ${data.id ?? "unknown"})`;
         result[label] = data.count;
       }
 
