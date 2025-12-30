@@ -18,8 +18,7 @@ type GenrePoint = {
 };
 
 // TOOLTIP
-function CustomTooltip(props: any) {
-  const { active, payload } = props || {};
+function CustomTooltip({ active, payload }: any) {
   if (!active || !payload?.length) return null;
 
   const raw = payload[0]?.payload;
@@ -140,7 +139,7 @@ export default function GenrePie({ data }: { data: Record<string, number> }) {
   const LABEL_OFFSET = 24;
 
   const shouldShowLabel = (value: number) =>
-    !isMobile && value / total >= 0.035;
+    !isMobile && total > 0 && value / total >= 0.035;
 
   return (
     <div className="bg-gray-900 p-4 rounded-2xl shadow-lg w-full flex flex-col md:flex-row">
@@ -162,17 +161,11 @@ export default function GenrePie({ data }: { data: Record<string, number> }) {
               innerRadius={0}
               isAnimationActive={false}
               label={(props: any) => {
-                const {
-                  name,
-                  value,
-                  cx,
-                  cy,
-                  midAngle,
-                  outerRadius,
-                  fill,
-                } = props;
+                const { name, value, cx, cy, midAngle, outerRadius, fill } =
+                  props;
 
-                if (!shouldShowLabel(value)) return null;
+                if (typeof value !== "number" || !shouldShowLabel(value))
+                  return null;
 
                 const percent = value / total;
                 const RAD = Math.PI / 180;
@@ -197,19 +190,23 @@ export default function GenrePie({ data }: { data: Record<string, number> }) {
               labelLine={(props: any) => {
                 const { points, stroke, value } = props;
 
-                if (!shouldShowLabel(value)) return null;
+                if (
+                  !points ||
+                  points.length < 2 ||
+                  typeof value !== "number" ||
+                  !shouldShowLabel(value)
+                )
+                  return null;
 
                 const EXT = 0.2;
-                const x =
-                  points[1].x + (points[1].x - points[0].x) * EXT;
-                const y =
-                  points[1].y + (points[1].y - points[0].y) * EXT;
+                const x = points[1].x + (points[1].x - points[0].x) * EXT;
+                const y = points[1].y + (points[1].y - points[0].y) * EXT;
 
                 return (
                   <path
-                    d={`M${points[0].x},${points[0].y}
-                        L${points[1].x},${points[1].y}
-                        L${x},${y}`}
+                    d={`M${points[0].x},${points[0].y} L${points[1].x},${
+                      points[1].y
+                    } L${x},${y}`}
                     stroke={stroke}
                     strokeWidth={1.4}
                     fill="none"
@@ -222,7 +219,7 @@ export default function GenrePie({ data }: { data: Record<string, number> }) {
               ))}
             </Pie>
 
-            <Tooltip content={<CustomTooltip />} cursor={false} />
+            <Tooltip content={CustomTooltip} cursor={false} />
           </PieChart>
         </ResponsiveContainer>
       </div>
