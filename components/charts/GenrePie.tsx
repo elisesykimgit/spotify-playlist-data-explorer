@@ -121,7 +121,7 @@ export default function GenrePie({ data }: { data: Record<string, number> }) {
     );
   }
 
-  // VISUAL CONSTANTS (NO COLOR CHANGES)
+  // VISUAL CONSTANTS
   const COLORS = [
     "#1DB954",
     "#1ED760",
@@ -138,6 +138,9 @@ export default function GenrePie({ data }: { data: Record<string, number> }) {
   const OUTER_RADIUS = isMobile ? 85 : 105;
   const LABEL_FONT = isMobile ? 11 : 15;
   const LABEL_OFFSET = 24;
+
+  const shouldShowLabel = (value: number) =>
+    !isMobile && value / total >= 0.035;
 
   return (
     <div className="bg-gray-900 p-4 rounded-2xl shadow-lg w-full flex flex-col md:flex-row">
@@ -157,21 +160,24 @@ export default function GenrePie({ data }: { data: Record<string, number> }) {
               cy="50%"
               outerRadius={OUTER_RADIUS}
               innerRadius={0}
-              isAnimationActive={false}   
+              isAnimationActive={false}
               label={(props: any) => {
-                const { name, value, cx, cy, midAngle, outerRadius, fill } = props;
+                const {
+                  name,
+                  value,
+                  cx,
+                  cy,
+                  midAngle,
+                  outerRadius,
+                  fill,
+                } = props;
 
-                if (isMobile) return null;
+                if (!shouldShowLabel(value)) return null;
 
                 const percent = value / total;
-                if (percent < 0.035) return null;
-
                 const RAD = Math.PI / 180;
 
-                // Label distance
-                const r =
-                  outerRadius + LABEL_OFFSET + 8;
-
+                const r = outerRadius + LABEL_OFFSET + 8;
                 const x = cx + r * Math.cos(-midAngle * RAD);
                 const y = cy + r * Math.sin(-midAngle * RAD);
 
@@ -189,12 +195,15 @@ export default function GenrePie({ data }: { data: Record<string, number> }) {
                 );
               }}
               labelLine={(props: any) => {
-                const { points, stroke } = props;
+                const { points, stroke, value } = props;
 
-                // Stick extension 
-                const EXT = 0.2; // 20%, clean and proportional
-                const x = points[1].x + (points[1].x - points[0].x) * EXT;
-                const y = points[1].y + (points[1].y - points[0].y) * EXT;
+                if (!shouldShowLabel(value)) return null;
+
+                const EXT = 0.2;
+                const x =
+                  points[1].x + (points[1].x - points[0].x) * EXT;
+                const y =
+                  points[1].y + (points[1].y - points[0].y) * EXT;
 
                 return (
                   <path
