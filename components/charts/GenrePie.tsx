@@ -7,7 +7,6 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-
 import { useEffect, useMemo, useState } from "react";
 
 // TYPES
@@ -196,7 +195,7 @@ export default function GenrePie({ data }: { data: Record<string, number> }) {
                   typeof value !== "number" ||
                   !shouldShowLabel(value)
                 )
-                  return null;
+                  return <g />;
 
                 const EXT = 0.2;
                 const x = points[1].x + (points[1].x - points[0].x) * EXT;
@@ -204,9 +203,7 @@ export default function GenrePie({ data }: { data: Record<string, number> }) {
 
                 return (
                   <path
-                    d={`M${points[0].x},${points[0].y} L${points[1].x},${
-                      points[1].y
-                    } L${x},${y}`}
+                    d={`M${points[0].x},${points[0].y} L${points[1].x},${points[1].y} L${x},${y}`}
                     stroke={stroke}
                     strokeWidth={1.4}
                     fill="none"
