@@ -234,6 +234,7 @@ const GENRE_CANONICAL_MAP: Record<string, string> = {
   "kpop": "k-pop",
   "k pop": "k-pop",
   "korean pop": "k-pop",
+  "k rap": "k-rap", 
 
   "jpop": "j-pop",
   "j pop": "j-pop",
@@ -248,17 +249,18 @@ const GENRE_CANONICAL_MAP: Record<string, string> = {
   "v-pop": "vietnamese pop", 
 
   // Hip-hop
-  "hiphop": "hip-hop",
-  "hip hop": "hip-hop",
+  "hiphop": "hip hop",
+  "hip-hop": "hip hop",
   
   // R&B
   "rnb": "r&b",
   "r&b": "r&b",
   "r n b": "r&b",
   "r'n'b": "r&b",
+  "alternative rnb": "alternative r&b", 
+  "k-rnb": "k-r&b",
 
    // Electronic 
-  "edm": "edm",
   "electronic dance music": "edm",
 
   "drum n bass": "drum and bass",
@@ -268,20 +270,17 @@ const GENRE_CANONICAL_MAP: Record<string, string> = {
   // Indie / Alternative 
   "indie-pop": "indie pop",
 
-  "alt rock": "alt-rock",
-  "alt-rock": "alt-rock",
-  "alternative rock": "alt-rock",
+  "alt rock": "alternative rock",
+  "alt-rock": "alternative rock",
 
   // Latin genres
-  "reggaeton": "reggaeton",
   "reggaetón": "reggaeton",
 
   // Metal / Rock
   "nu-metal": "nu metal",
   "nu metal": "nu metal",
 
-  "pop punk": "pop-punk",
-  "pop-punk": "pop-punk",
+  "pop-punk": "pop punk",
 
   // others 
   "lofi": "lo-fi", 
