@@ -27,6 +27,9 @@ This tool works **without user authentication**, utilizing a backend serverless 
 
 > ⚠️ **Note:** Due to Spotify API restrictions, playlists **must be public** and **user-made**. Official Spotify editorial playlists and private playlists cannot be accessed.
 
+> !!! UPDATE AS OF FEBRUARY 2026 - about Spotify for Developers: As of February 11, 2026, all Spotify Development Mode apps **require the owner to have an active Premium subscription**, enforcing a 403 Forbidden error if it lapses. [link to the update](https://developer.spotify.com/documentation/web-api/tutorials/february-2026-migration-guide#:~:text=Premium%20Requirement,functioning%20once%20the%20owner%20resubscribes.)
+
+
 ---
 
 ## 📸 **Example Walkthrough: Real Playlist Analysis**
@@ -361,6 +364,8 @@ Limit defaults:
 * Private playlists require OAuth authentication (not supported here)
 * Some artists have no genres on Spotify; in these cases, Last.fm data is used to fill the gaps
 * For complete stability (especially artist images), using a Spotify refresh token is recommended — otherwise some artist endpoints may return empty data or intermittent 401s
+
+* UPDATE AS OF FEBRUARY 2026 - about Spotify for Developers: As of February 11, 2026, all Spotify Development Mode apps **require the owner to have an active Premium subscription**, enforcing a 403 Forbidden error if it lapses. [link to the update](https://developer.spotify.com/documentation/web-api/tutorials/february-2026-migration-guide#:~:text=Premium%20Requirement,functioning%20once%20the%20owner%20resubscribes.)
 
 ### Lyrics:
 
